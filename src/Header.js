@@ -1,22 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import sun from './assets/images/icon-sun-light.svg';
+import sunDark from './assets/images/icon-sun-dark.svg';
+import moon from './assets/images/icon-moon-light.svg';
+import moonDark from './assets/images/icon-moon-dark.svg';
+import './Header.css';
 
-function Header() {
+function Header({isDark, onSwitch}) {
+  
   return (
-    <div className="Header">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="header">
+      <header className="app-header">
+        <img src={isDark ? sun : sunDark} className="icon" alt="switch to light mode" />
+        <label className="switch">
+          <input type="checkbox" value={isDark} onChange={onSwitch}/>
+          <span className="slider round"></span>
+        </label>
+        <img src={isDark ? moon : moonDark} className="icon" alt="switch to dark mode" />
       </header>
     </div>
   );

@@ -1,6 +1,6 @@
 :root {
   --purple: #A729F5;
-  --darkGrey: #313E51;
+  --darkNavy: #313E51;
   --blueGrey: #3B4D66;
   --greyNavy: #626C7F;
   --blue: #ABC1E1;
@@ -11,28 +11,44 @@
   --lightPurple: #F6E7FF;
 }
 
-@font-face {
-  font-family: 'Rubik-Regular';
-  src: local('Rubik-Regular'),
-       url('./fonts/Rubik-Regular.ttf') format('ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;1,400&display=swap');
 
 @font-face {
-  font-family: 'Rubik-Medium';
-  src: local('Rubik-Medium'),
-       url('./fonts/Rubik-Medium.ttf') format('ttf');
-}
-
-body {
-  margin: 0;
   font-family: Rubik-Regular;
-  font-size: 12px;
+  src: url('./fonts/Rubik-Regular.ttf');
+}
+
+@font-face {
+  font-family: Rubik-Medium;
+  src: url('./fonts/Rubik-Medium.ttf');
+}
+
+@font-face {
+  font-family: Rubik-Light;
+  src: url('./fonts/Rubik-Light.ttf');
+}
+
+body, html, .App, .AppDark, #root {
+  font-family: Rubik-Regular;
+  font-size: 14px;
+  height: 100%;
   line-height: 150%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
 }
 
-body-small {
+.App {
+  background-color: var(--lightGrey);
+  background-image: url('./assets/images/pattern-background-mobile-light.svg');
+}
+
+.AppDark {
+  background-color: var(--blueGrey);
+  background-image: url('./assets/images/pattern-background-mobile-dark.svg');
+}
+
+.small {
   font-style: italic;
 }
 
@@ -66,6 +82,12 @@ h5 {
   line-height: 100%;
 }
 
+.quiz-text {
+  color: var(--darkNavy);
+  font-family: Rubik-Medium;
+  font-size: 18px;
+}
+
 button {
   background-color: var(--purple);
   color: var(--white);
@@ -75,7 +97,4 @@ button:hover {
   background-color: var(--lightPurple);
 }
 
-code {
-  font-family: Rubik,
-    monospace;
-}
+
