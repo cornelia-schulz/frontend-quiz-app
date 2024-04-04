@@ -1,5 +1,6 @@
 import './Quiz-List.css';
-import data from './data.json';
+import data from '../data.json';
+import { Link } from 'react-router-dom';
 
 function QuizList({isDark}) {
 
@@ -11,7 +12,7 @@ function QuizList({isDark}) {
         {data.quizzes.map((quiz) => {
           return <li className={isDark ? "list-entry-dark" : "list-entry"} key={quiz.title}>
                     <img className={quiz.title} src={quiz.icon} alt={quiz.title} />
-                    <p className="quiz-text">{quiz.title}</p>
+                    <Link to={`/quiz/${quiz.title}`} className="quiz-text">{quiz.title}</Link>
                   </li>
         })}
       </ul>

@@ -1,7 +1,7 @@
-import sun from './assets/images/icon-sun-light.svg';
-import sunDark from './assets/images/icon-sun-dark.svg';
-import moon from './assets/images/icon-moon-light.svg';
-import moonDark from './assets/images/icon-moon-dark.svg';
+import sun from '../assets/images/icon-sun-light.svg';
+import sunDark from '../assets/images/icon-sun-dark.svg';
+import moon from '../assets/images/icon-moon-light.svg';
+import moonDark from '../assets/images/icon-moon-dark.svg';
 import './Header.css';
 
 function Header({isDark, onSwitch}) {
