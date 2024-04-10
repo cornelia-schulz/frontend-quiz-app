@@ -90,11 +90,13 @@ h5 {
 
 button {
   background-color: var(--purple);
+  border: 0;
   color: var(--white);
+  filter: drop-shadow(10px 10px 4px #F4F6FA);
 }
 
 button:hover {
-  background-color: var(--lightPurple);
+  background-color:rgba(167, 41, 245, 0.5);
 }
 
 

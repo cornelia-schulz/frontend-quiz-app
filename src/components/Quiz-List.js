@@ -12,7 +12,7 @@ function QuizList({isDark}) {
         {data.quizzes.map((quiz) => {
           return <li className={isDark ? "list-entry-dark" : "list-entry"} key={quiz.title}>
                     <img className={quiz.title} src={quiz.icon} alt={quiz.title} />
-                    <Link to={`/quiz/${quiz.title}`} className="quiz-text">{quiz.title}</Link>
+                    <Link to={`/quiz/${quiz.title}`} state={isDark} className="quiz-text">{quiz.title}</Link>
                   </li>
         })}
       </ul>

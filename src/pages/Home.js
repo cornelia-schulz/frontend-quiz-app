@@ -1,12 +1,18 @@
+import { useState } from 'react';
 import Header from '../components/Header';
 import QuizList from '../components/Quiz-List';
 
-function Home({isDark, onSwitch}) {
+function Home() {
+  const[isDark, setIsDark] = useState(false);
+  const handleDarkModeChange = () => {
+    setIsDark(!isDark);
+  }
+
   return (
-    <>
-      <Header isDark={isDark} onSwitch={onSwitch} />
+    <div className={isDark ? "AppDark" : "App"}>
+      <Header isDark={isDark} onSwitch={handleDarkModeChange} />
       <QuizList isDark={isDark} />
-    </>
+    </div>
   )
 }
 
