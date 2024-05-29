@@ -6,7 +6,6 @@ import QuizQuestion from "../components/Quiz-Question";
 
 function Quiz(props) {
   const { state } = props.location || {};
-  console.log(props);
   const[isPageDark, setIsPageDark] = useState(false);
   const handleDarkModeChange = () => {
     setIsPageDark(!isPageDark);

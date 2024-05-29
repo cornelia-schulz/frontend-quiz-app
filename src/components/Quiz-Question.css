@@ -15,6 +15,23 @@
   font-size: 20px;
 }
 
+.bar-outer {
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 7px;
+  display: flex;
+  height: 16px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.bar-inner {
+  background-color: var(--purple);
+  border-radius: 7px;
+  height: 8px;
+  margin-left: 1%;
+}
+
 .options, .options-dark {
   background-color: var(--white);
   border-radius: 12px;
@@ -27,7 +44,7 @@
 
 .options-dark {
   background-color: var(--darkNavy);
-  color: var(--white)
+  color: var(--white);
 }
 
 .options-dark > .counter {
