@@ -13,6 +13,9 @@ function Quiz(props) {
 
   const { quizID } = useParams();
   const [ quiz, setQuiz ] = useState(null);
+  const [ showScore, setShowScore ] = useState(false);
+  const [ currentQuestion, setCurrentQuestion ] = useState(0);
+  const [ score, setScore ] = useState(0);
 
   useEffect(() => {
     const quizData = data.quizzes.filter((quiz) => {
@@ -26,12 +29,31 @@ function Quiz(props) {
     }
   }, [quizID, state]);
 
+  const handleAnswerSubmit = (isCorrect) => {
+    console.log('submit answer')
+;    if (isCorrect) {
+      setScore(score + 1);
+    }
+
+    const nextQuestion = currentQuestion + 1;
+    if (nextQuestion < quiz.questions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setShowScore(true);
+    }
+  };
+
   return (
     <div className={isPageDark ? "AppDark" : "App"}>
       {quiz && <Header className={isPageDark ? "AppDark" : "App"} isDark={isPageDark} onSwitch={handleDarkModeChange} title={quiz.title} icon={quiz.icon} />}
-      {quiz && quiz.questions.map((question, index) => {
+      {/* {quiz && quiz.questions.map((question, index) => {
         return <QuizQuestion isDark={isPageDark} question={question} key={index} number={index+1} questions={quiz.questions.length} />
-      })}
+      })} */}
+      {showScore ? (
+        <div className="score-section">You scored {score} out of {quiz.questions.length}</div>
+      ) : (
+        quiz && <QuizQuestion isDark={isPageDark} question={quiz.questions[currentQuestion]} number={currentQuestion + 1} questions={quiz.questions.length} submitQuestion={handleAnswerSubmit} />
+      )}
     </div>
     
   )

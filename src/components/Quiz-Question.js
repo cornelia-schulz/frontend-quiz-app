@@ -1,9 +1,10 @@
 import './Quiz-Question.css';
 import { useState, useEffect } from "react";
 
-function QuizQuestion({isDark, question, number, questions}) {
+function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
   
   const [barWidth, setBarWidth] = useState(0);
+  // onclick add class and collect counter option.
   
   useEffect(() => {
     const width = number / questions * 100;
@@ -22,7 +23,7 @@ function QuizQuestion({isDark, question, number, questions}) {
                   <div className="counter">{index+1}</div>{answer}
                 </div>
       })}
-      <button className={isDark ? "submit-answer-dark" : "submit-answer"}>Submit Answer</button>
+      <button className={isDark ? "submit-answer-dark" : "submit-answer"} onClick={submitQuestion}>Submit Answer</button>
     </div>
   )
 }
