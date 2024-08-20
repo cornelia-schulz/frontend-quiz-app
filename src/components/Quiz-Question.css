@@ -33,16 +33,16 @@
 }
 
 .options, .options-dark {
+  align-items: center;
   background-color: var(--white);
   border-radius: 12px;
   display: flex;
   font-size: 18px;
   margin-bottom: 12px;
   padding: 12px;
-  align-items: center;
 }
 
-.options-active {
+.options:focus, .options-dark:focus {
   border: 2px solid var(--purple);
 }
 
@@ -55,8 +55,13 @@
   color: var(--greyNavy)
 }
 
-.options-active > .counter {
+.options:focus:focus > .counter {
   background-color: var(--purple);
+}
+
+.options-dark:focus > .counter {
+  background-color: var(--purple);
+  color: var(--white);
 }
 
 .counter {

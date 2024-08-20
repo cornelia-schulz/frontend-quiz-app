@@ -46,16 +46,12 @@ function Quiz(props) {
   return (
     <div className={isPageDark ? "AppDark" : "App"}>
       {quiz && <Header className={isPageDark ? "AppDark" : "App"} isDark={isPageDark} onSwitch={handleDarkModeChange} title={quiz.title} icon={quiz.icon} />}
-      {/* {quiz && quiz.questions.map((question, index) => {
-        return <QuizQuestion isDark={isPageDark} question={question} key={index} number={index+1} questions={quiz.questions.length} />
-      })} */}
       {showScore ? (
         <div className="score-section">You scored {score} out of {quiz.questions.length}</div>
       ) : (
         quiz && <QuizQuestion isDark={isPageDark} question={quiz.questions[currentQuestion]} number={currentQuestion + 1} questions={quiz.questions.length} submitQuestion={handleAnswerSubmit} />
       )}
     </div>
-    
   )
 }
 
