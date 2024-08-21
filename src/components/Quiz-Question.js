@@ -14,13 +14,39 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
   useEffect(() => {
     const width = number / questions * 100;
     setBarWidth(width);
-    console.log(selected, isCorrect, hasQuestionBeenSubmitted, hasOptionBeenSelected, emptySubmission);
   }, [number, questions, selected, isCorrect, hasQuestionBeenSubmitted, emptySubmission])
 
   const updateSelected = (option, index) => {
     setSelected({option, index});
     setHasOptionBeenSelected(true);
     setEmptySubmission(false);
+    const item = "options-"+index.index;
+    clearSelected();
+    updateStyle(item);
+  }
+
+  const clearSelected = () => {
+    for(var i = 0; i < question.options.length; i++) {
+      const id = "options-" + i;
+      const optionItem = document.getElementById(id);
+      optionItem.classList.remove("selected");
+    }
+  }
+
+  const updateStyle = (option) => {
+    const optionItem = document.getElementById(option);
+    optionItem.classList.add("selected");
+  }
+
+  const validateAnswer = (colour) => {
+    for(var i = 0; i < question.options.length; i++) {
+      const id = "options-" + i;
+      const optionItem = document.getElementById(id);
+      if (optionItem.classList.contains('selected')) {
+        optionItem.classList.remove('selected');
+        optionItem.classList.add(colour)
+      }
+    }
   }
 
   const checkAnswer = () => {
@@ -30,8 +56,10 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
       setHasQuestionBeenSubmitted(true);
       if(selected.option.option===question.answer) {
         setIsCorrect(true);
+        validateAnswer('correct-answer');
       } else {
         setIsCorrect(false);
+        validateAnswer('incorrect-answer');
       }
     } else {
       setEmptySubmission(true);
@@ -46,8 +74,10 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
         <div className="bar-inner" style={{ width: barWidth + "%" }}></div>
       </div>
       {question.options.map((option, index) => {
-        return <div className={`${isDark ? "options-dark" : "options"}`} tabIndex={-1} key={index} onClick={() => updateSelected({option}, {index})} >
-                  <div className="counter">{index+1}</div>{option}
+        return <div id={`options-${index}`} className={`${isDark ? "options-dark" : "options"}`} key={index} onClick={() => updateSelected({option}, {index})} >
+                  <div className="counter">{index+1}</div>
+                  {option}
+                  
                 </div>
       })}
       <button className={`${isDark ? "submit-answer-dark" : "submit-answer"} ${hasQuestionBeenSubmitted ? "invisible" : "visible"}`} onClick={checkAnswer}>Submit Answer</button>

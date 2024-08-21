@@ -42,8 +42,16 @@
   padding: 12px;
 }
 
-.options:focus, .options-dark:focus {
+.selected {
   border: 2px solid var(--purple);
+}
+
+.correct-answer {
+  border: 2px solid var(--green);
+}
+
+.incorrect-answer {
+  border: 2px solid var(--red);
 }
 
 .options-dark {
@@ -55,12 +63,18 @@
   color: var(--greyNavy)
 }
 
-.options:focus:focus > .counter {
+.selected > .counter {
   background-color: var(--purple);
+  color: var(--white);
 }
 
-.options-dark:focus > .counter {
-  background-color: var(--purple);
+.correct-answer > .counter {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.incorrect-answer > .counter {
+  background-color: var(--red);
   color: var(--white);
 }
 
