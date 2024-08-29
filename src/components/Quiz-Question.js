@@ -1,6 +1,7 @@
 import './Quiz-Question.css';
 import { useState, useEffect } from 'react';
-import error from '../assets/images/icon-error.svg'
+import error from '../assets/images/icon-error.svg';
+import correct from '../assets/images/icon-correct.svg';
 
 function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
   
@@ -8,17 +9,17 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
   const [ selected, setSelected ] = useState({option: "nothing", index: -1});
   const [ isCorrect, setIsCorrect ] = useState(false);
   const [ hasQuestionBeenSubmitted, setHasQuestionBeenSubmitted ] = useState(false);
-  const [ hasOptionBeenSelected, setHasOptionBeenSelected ] = useState(false);
+  const [ correctAnswer, setCorrectAnswer ] = useState("none");
   const [ emptySubmission, setEmptySubmission ] = useState(false);
   
   useEffect(() => {
     const width = number / questions * 100;
     setBarWidth(width);
-  }, [number, questions, selected, isCorrect, hasQuestionBeenSubmitted, emptySubmission])
+    setCorrectAnswer(question.answer);
+  }, [number, questions, selected, isCorrect, hasQuestionBeenSubmitted, emptySubmission, question.answer])
 
   const updateSelected = (option, index) => {
     setSelected({option, index});
-    setHasOptionBeenSelected(true);
     setEmptySubmission(false);
     const item = "options-"+index.index;
     clearSelected();
@@ -30,6 +31,9 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
       const id = "options-" + i;
       const optionItem = document.getElementById(id);
       optionItem.classList.remove("selected");
+      optionItem.classList.remove("correct-answer");
+      optionItem.classList.remove("incorrect-answer");
+      optionItem.classList.remove("show-correct-answer");
     }
   }
 
@@ -49,6 +53,17 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
     }
   }
 
+  const showCorrectAnswer = () => {
+    // find the correct answer among options
+    for(var i = 0; i < question.options.length; i++) {
+      const id = "options-" + i;
+      const optionItem = document.getElementById(id);
+      if (optionItem.textContent.substring(1) === correctAnswer) {
+        optionItem.classList.add('show-correct-answer');
+      }
+    }
+  }
+
   const checkAnswer = () => {
     // check if answer is correct or not and change the colour of the selected div
     // change button to next question button
@@ -60,10 +75,17 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
       } else {
         setIsCorrect(false);
         validateAnswer('incorrect-answer');
+        showCorrectAnswer();
       }
     } else {
       setEmptySubmission(true);
     }
+  }
+
+  const goToNextQuestion = () => {
+    setHasQuestionBeenSubmitted(false);
+    clearSelected();
+    submitQuestion(isCorrect);
   }
 
   return (
@@ -77,11 +99,12 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
         return <div id={`options-${index}`} className={`${isDark ? "options-dark" : "options"}`} key={index} onClick={() => updateSelected({option}, {index})} >
                   <div className="counter">{index+1}</div>
                   {option}
-                  
+                  <img src={correct} className="correct-option invisible" alt="correct answer" />
+                  <img src={error} className="incorrect-option invisible" alt="incorrect answer" />
                 </div>
       })}
       <button className={`${isDark ? "submit-answer-dark" : "submit-answer"} ${hasQuestionBeenSubmitted ? "invisible" : "visible"}`} onClick={checkAnswer}>Submit Answer</button>
-      <button className={`${isDark ? "submit-answer-dark" : "submit-answer"} ${hasQuestionBeenSubmitted ? "visible" : "invisible"}`} onClick={submitQuestion}>Next Question</button>
+      <button className={`${isDark ? "submit-answer-dark" : "submit-answer"} ${hasQuestionBeenSubmitted ? "visible" : "invisible"}`} onClick={goToNextQuestion}>Next Question</button>
       <p className={`${emptySubmission ? "submission-error" : "invisible"} ${isDark ? "submission-error-dark" : ""}`}>
         <img src={error} className="submission-error-img" alt="error message" />
         Please select an answer

@@ -78,6 +78,18 @@
   color: var(--white);
 }
 
+.correct-answer > .correct-option {
+  display: block;
+}
+
+.show-correct-answer > .correct-option {
+  display: block;
+}
+
+.incorrect-answer > .incorrect-option {
+  display: block;
+}
+
 .counter {
   align-items: center;
   background-color: var(--lightGrey);
@@ -87,6 +99,11 @@
   justify-content: center;
   margin-right: 16px;
   width: 40px;
+}
+
+.correct-option, .incorrect-option {
+  margin-left: auto;
+  width: 32px;
 }
 
 .submit-answer, .submit-answer-dark {

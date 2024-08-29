@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import data from '../data.json';
-import Header from "../components/Header";
-import { useEffect, useState } from "react";
-import QuizQuestion from "../components/Quiz-Question";
+import Header from '../components/Header';
+import { useEffect, useState } from 'react';
+import QuizQuestion from '../components/Quiz-Question';
+import QuizResult from '../components/Quiz-Result';
 
 function Quiz(props) {
   const { state } = props.location || {};
@@ -27,11 +28,10 @@ function Quiz(props) {
       const { isDark } = state;
       setIsPageDark(isDark);
     }
-  }, [quizID, state]);
+  }, [quizID, state, score]);
 
   const handleAnswerSubmit = (isCorrect) => {
-    console.log('submit answer')
-;    if (isCorrect) {
+    if (isCorrect) {
       setScore(score + 1);
     }
 
@@ -47,7 +47,7 @@ function Quiz(props) {
     <div className={isPageDark ? "AppDark" : "App"}>
       {quiz && <Header className={isPageDark ? "AppDark" : "App"} isDark={isPageDark} onSwitch={handleDarkModeChange} title={quiz.title} icon={quiz.icon} />}
       {showScore ? (
-        <div className="score-section">You scored {score} out of {quiz.questions.length}</div>
+        <QuizResult isDark={isPageDark} questions={quiz.questions.length} title={quiz.title} icon={quiz.icon} result={score} />
       ) : (
         quiz && <QuizQuestion isDark={isPageDark} question={quiz.questions[currentQuestion]} number={currentQuestion + 1} questions={quiz.questions.length} submitQuestion={handleAnswerSubmit} />
       )}
