@@ -138,3 +138,7 @@
 .submission-error-img {
   width: 32px;
 }
+
+.disabled {
+  pointer-events: none;  
+}

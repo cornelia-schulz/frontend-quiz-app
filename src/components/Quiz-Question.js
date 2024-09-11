@@ -37,6 +37,22 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
     }
   }
 
+  const disbableSelection = () => {
+    for(var i = 0; i < question.options.length; i++) {
+      const id = "options-" + i;
+      const optionItem = document.getElementById(id);
+      optionItem.classList.add("disabled");
+    }
+  }
+
+  const enableSelection = () => {
+    for(var i = 0; i < question.options.length; i++) {
+      const id = "options-" + i;
+      const optionItem = document.getElementById(id);
+      optionItem.classList.remove("disabled");
+    }
+  }
+
   const updateStyle = (option) => {
     const optionItem = document.getElementById(option);
     optionItem.classList.add("selected");
@@ -69,6 +85,7 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
     // change button to next question button
     if (selected.index !== -1) {
       setHasQuestionBeenSubmitted(true);
+      disbableSelection();
       if(selected.option.option===question.answer) {
         setIsCorrect(true);
         validateAnswer('correct-answer');
@@ -85,6 +102,7 @@ function QuizQuestion({isDark, question, number, questions, submitQuestion}) {
   const goToNextQuestion = () => {
     setHasQuestionBeenSubmitted(false);
     clearSelected();
+    enableSelection();
     submitQuestion(isCorrect);
   }
 
