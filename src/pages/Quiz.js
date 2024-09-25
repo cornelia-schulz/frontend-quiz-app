@@ -1,17 +1,17 @@
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import data from '../data.json';
 import Header from '../components/Header';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import QuizQuestion from '../components/Quiz-Question';
 import QuizResult from '../components/Quiz-Result';
+import { darkModeReducer, initialState } from '../reducers/darkModeReducer';
+import { DarkModeContext, DarkModeDispatchContext } from '../context/darkModeContext';
 
-function Quiz(props) {
-  const { state } = props.location || {};
-  const[isPageDark, setIsPageDark] = useState(false);
-  const handleDarkModeChange = () => {
-    setIsPageDark(!isPageDark);
-  }
-
+function Quiz() {
+  let { state } = useLocation();
+  const [ initState, dispatch ] = useReducer(darkModeReducer, state||initialState);
+  const { isDark } = initState;
   const { quizID } = useParams();
   const [ quiz, setQuiz ] = useState(null);
   const [ showScore, setShowScore ] = useState(false);
@@ -23,12 +23,11 @@ function Quiz(props) {
       return quiz.title === quizID;
     });
     setQuiz(quizData[0]);
+  }, [quizID, isDark, score]);
 
-    if (state) {
-      const { isDark } = state;
-      setIsPageDark(isDark);
-    }
-  }, [quizID, state, score]);
+  const handleDarkModeChange = () => {
+    dispatch({ type: "toggleIsDark" })
+  }
 
   const handleAnswerSubmit = (isCorrect) => {
     if (isCorrect) {
@@ -44,14 +43,18 @@ function Quiz(props) {
   };
 
   return (
-    <div className={isPageDark ? "AppDark" : "App"}>
-      {quiz && <Header className={isPageDark ? "AppDark" : "App"} isDark={isPageDark} onSwitch={handleDarkModeChange} title={quiz.title} icon={quiz.icon} />}
-      {showScore ? (
-        <QuizResult isDark={isPageDark} questions={quiz.questions.length} title={quiz.title} icon={quiz.icon} result={score} />
-      ) : (
-        quiz && <QuizQuestion isDark={isPageDark} question={quiz.questions[currentQuestion]} number={currentQuestion + 1} questions={quiz.questions.length} submitQuestion={handleAnswerSubmit} />
-      )}
-    </div>
+    <DarkModeContext.Provider value={state}>
+      <DarkModeDispatchContext.Provider value={dispatch}>
+        <div className={isDark ? "AppDark" : "App"}>
+          {quiz && <Header className={isDark ? "AppDark" : "App"} isDark={isDark} onSwitch={handleDarkModeChange} title={quiz.title} icon={quiz.icon} />}
+          {showScore ? (
+            <QuizResult isDark={isDark} questions={quiz.questions.length} title={quiz.title} icon={quiz.icon} result={score} />
+          ) : (
+            quiz && <QuizQuestion isDark={isDark} question={quiz.questions[currentQuestion]} number={currentQuestion + 1} questions={quiz.questions.length} submitQuestion={handleAnswerSubmit} />
+          )}
+        </div>
+    </DarkModeDispatchContext.Provider>
+    </DarkModeContext.Provider>
   )
 }
 

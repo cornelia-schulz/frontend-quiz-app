@@ -55,7 +55,7 @@
   text-decoration: none;
 }
 
-.list-entry > img, .list-entry-dark > img {
+.list-entry > .quiz-image, .list-entry-dark > .quiz-image {
   border-radius: 12px;
   height: 40px;
   margin-right: 16px;

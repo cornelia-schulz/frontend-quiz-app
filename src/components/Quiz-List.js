@@ -1,8 +1,13 @@
 import './Quiz-List.css';
 import data from '../data.json';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function QuizList({isDark}) {
+
+  useEffect(() => {
+    
+  }, [isDark])
 
   return (
     <div className="quiz-list">
@@ -11,8 +16,12 @@ function QuizList({isDark}) {
       <ul className="list-body">
         {data.quizzes.map((quiz) => {
           return <li className={isDark ? "list-entry-dark" : "list-entry"} key={quiz.title}>
-                    <img className={quiz.title} src={quiz.icon} alt={quiz.title} />
-                    <Link to={`/quiz/${quiz.title}`} state={isDark} className="quiz-text">{quiz.title}</Link>
+                    <Link to={`/quiz/${quiz.title}`} state={{isDark: isDark}} className="quiz-image">
+                      <img className={quiz.title} src={quiz.icon} alt={quiz.title} />
+                    </Link>
+                    <Link to={`/quiz/${quiz.title}`} state={{isDark: isDark}} className="quiz-text">
+                      {quiz.title}
+                    </Link>
                   </li>
         })}
       </ul>
