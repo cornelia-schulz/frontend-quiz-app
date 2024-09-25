@@ -23,7 +23,7 @@ function Home() {
         </div>
       </DarkModeDispatchContext.Provider>
     </DarkModeContext.Provider>
-  )
+  );
 }
 
 export default Home;
