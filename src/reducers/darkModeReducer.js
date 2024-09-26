@@ -6,11 +6,14 @@ export const initialState = {
 export function darkModeReducer(state, action) {
   switch (action.type) {
     case "setIsDark": {
-      return { ...state, isDark: action.value }
-    };
+      return { ...state, isDark: action.value };
+    }
     case "toggleIsDark": {
       const newMode = !state.isDark 
-      return { ...state, isDark: newMode } 
-    };
+      return { ...state, isDark: newMode };
+    }
+    default: {
+      return state;
+    }
   }
 }
