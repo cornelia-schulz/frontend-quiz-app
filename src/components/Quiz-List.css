@@ -13,7 +13,7 @@
   color: var(--white);
 }
 
-.list-header > span {
+.list-header > span, .list-header-dark > span {
   font-family: Rubik-Medium;
 }
 
@@ -76,4 +76,25 @@
 
 .Accessibility {
   background-color: #F6E7FF;
+}
+
+@media only screen and (min-width: 928px) {
+  .quiz-list {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .list-header > span, .list-header-dark > span {
+    display: block;
+  }
+
+  .list-body {
+    flex-grow: 2;
+    margin-left: 100px;
+  }
+
+  .list-entry, .list-entry-dark {
+    margin-bottom: 20px;
+    padding: 20px;
+  }
 }

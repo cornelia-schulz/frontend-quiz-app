@@ -14,7 +14,7 @@ function QuizResult({isDark, questions, title, icon, result}) {
         <p className={isDark ? "quiz-result-number-dark" : "quiz-result-number"}>{result}</p>
         <p className={isDark ? "quiz-result-questions-dark" : "quiz-result-questions"}>out of {questions}</p>
       </div>
-      <Link to="/">
+      <Link to="/" state={{ isDark: isDark }}>
         <button className={isDark ? "play-again-dark" : "play-again"}>Play Again</button>
       </Link>
     </div>
